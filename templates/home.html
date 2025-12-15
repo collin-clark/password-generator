@@ -7,48 +7,74 @@
 </head>
 <body>
 <div class="container mt-4">
+  <div class="row">
 
-    <h1>Password & Passkey Generator</h1>
+    <!-- LEFT COLUMN -->
+    <div class="col-md-5">
 
-    <!-- Password Form -->
-    <form id="passwordForm" class="mb-4">
+      <h2>Password Generator</h2>
+
+      <!-- Password Form -->
+      <form id="passwordForm" class="mb-4 text-left">
+
         <div class="form-row">
-            <div class="col">
-                <input type="number" class="form-control" name="howmanypasswords" placeholder="How many passwords" min="1">
-            </div>
-            <div class="col">
-                <input type="number" class="form-control" name="length" placeholder="Password length" min="1">
-            </div>
+          <div class="col">
+            <input type="number" class="form-control" name="howmanypasswords"
+                   placeholder="How many passwords" min="1">
+          </div>
+          <div class="col">
+            <input type="number" class="form-control" name="length"
+                   placeholder="Password length" min="1">
+          </div>
         </div>
 
         <div class="form-check mt-2">
-            <input class="form-check-input" type="checkbox" name="uppercase" id="uppercase">
-            <label class="form-check-label" for="uppercase">Include uppercase</label>
+          <input class="form-check-input" type="checkbox" name="uppercase" id="uppercase">
+          <label class="form-check-label" for="uppercase">Include uppercase</label>
         </div>
+
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="special" id="special">
-            <label class="form-check-label" for="special">Include special chars</label>
+          <input class="form-check-input" type="checkbox" name="special" id="special">
+          <label class="form-check-label" for="special">Include special characters</label>
         </div>
+
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="numbers" id="numbers">
-            <label class="form-check-label" for="numbers">Include numbers</label>
+          <input class="form-check-input" type="checkbox" name="numbers" id="numbers">
+          <label class="form-check-label" for="numbers">Include numbers</label>
         </div>
+
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="annoy" id="annoy">
-            <label class="form-check-label" for="annoy">Include ambiguous chars</label>
+          <input class="form-check-input" type="checkbox" name="annoy" id="annoy">
+          <label class="form-check-label" for="annoy">Include ambiguous characters</label>
         </div>
 
-        <button class="btn btn-primary mt-2">Generate Passwords</button>
-    </form>
+        <button class="btn btn-primary mt-3 w-100">
+          Generate Passwords
+        </button>
+      </form>
 
-    <!-- Passkey Form -->
-    <form id="passkeyForm">
-        <button class="btn btn-success mb-4">Generate Passkey</button>
-    </form>
+      <hr>
 
-    <!-- Results -->
-    <div id="results"></div>
+      <!-- Passkey -->
+      <h4>Passkey</h4>
+      <form id="passkeyForm">
+        <button class="btn btn-success w-100">
+          Generate Passkey
+        </button>
+      </form>
 
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-md-7">
+      <h2>Results</h2>
+
+      <div id="results" class="border rounded p-3 bg-light" style="min-height: 200px;">
+        <p class="text-muted">Generated passwords and passkeys will appear here.</p>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <script>
