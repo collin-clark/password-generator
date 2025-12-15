@@ -8,5 +8,6 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN pip3 install --upgrade pip
 RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
 WORKDIR /app
-RUN git clone https://github.com/collin-clark/site-code-generator.git .
+RUN git clone https://github.com/collin-clark/password-generator.git .
+
 CMD ["gunicorn","--config", "/tmp/gunicorn_config.py", "app:app"]
