@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Password & Passkey Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+
+    <h1>Password & Passkey Generator (AJAX)</h1>
+
+    <!-- Password Form -->
+    <form id="passwordForm" class="mb-4">
+        <div class="form-row">
+            <div class="col">
+                <input type="number" class="form-control" name="howmanypasswords" placeholder="How many passwords" min="1">
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" name="length" placeholder="Password length" min="1">
+            </div>
+        </div>
+
+        <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" name="uppercase" id="uppercase">
+            <label class="form-check-label" for="uppercase">Include uppercase</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="special" id="special">
+            <label class="form-check-label" for="special">Include special chars</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="numbers" id="numbers">
+            <label class="form-check-label" for="numbers">Include numbers</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="annoy" id="annoy">
+            <label class="form-check-label" for="annoy">Include ambiguous chars</label>
+        </div>
+
+        <button class="btn btn-primary mt-2">Generate Passwords</button>
+    </form>
+
+    <!-- Passkey Form -->
+    <form id="passkeyForm">
+        <button class="btn btn-success mb-4">Generate Passkey</button>
+    </form>
+
+    <!-- Results -->
+    <div id="results"></div>
+
+</div>
+
+<script>
+const resultsDiv = document.getElementById("results");
+
+// Password form submission
+document.getElementById("passwordForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    resultsDiv.innerHTML = "Generating passwords...";
+
+    const formData = Object.fromEntries(new FormData(e.target).entries());
+    formData.action = "password";
+    // Convert checkboxes to booleans
+    formData.uppercase = formData.uppercase ? true : false;
+    formData.special = formData.special ? true : false;
+    formData.numbers = formData.numbers ? true : false;
+    formData.annoy = formData.annoy ? true : false;
+
+    const res = await fetch("/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+    });
+    const data = await res.json();
+
+    if (data.error) {
+        resultsDiv.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+        return;
+    }
+
+    resultsDiv.innerHTML = "<h3>Generated Passwords:</h3><ul>" +
+        data.passwords.map(p => `<li>${p}</li>`).join("") +
+        "</ul>";
+});
+
+// Passkey form submission
+document.getElementById("passkeyForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    resultsDiv.innerHTML = "Generating passkey...";
+
+    const res = await fetch("/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "passkey" })
+    });
+    const data = await res.json();
+
+    if (data.error) {
+        resultsDiv.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+        return;
+    }
+
+    resultsDiv.innerHTML = `<h3>Generated Passkey:</h3><p>${data.passkey}</p>`;
+});
+</script>
+</body>
+</html>
