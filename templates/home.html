@@ -105,7 +105,7 @@ document.getElementById("passwordForm").addEventListener("submit", async (e) => 
         return;
     }
 
-    resultsDiv.innerHTML = "<h3>Generated Passwords:</h3><ul>" +
+    resultsDiv.innerHTML = "<h3> </h3><ul>" +
         data.passwords.map(p => `<li>${p}</li>`).join("") +
         "</ul>";
 });
@@ -127,7 +127,7 @@ document.getElementById("passkeyForm").addEventListener("submit", async (e) => {
         return;
     }
 
-    resultsDiv.innerHTML = `<h3>Generated Passkey:</h3><p>${data.passkey}</p>`;
+    resultsDiv.innerHTML = `<h3> </h3><p>${data.passkey}</p>`;
 });
 </script>
 </body>
