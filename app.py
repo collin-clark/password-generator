@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("app_passgen/home.html")
+    return render_template("templates/home.html")
 
 
 @app.route("/generate", methods=["POST"])
@@ -63,3 +63,4 @@ def generate():
 # -------------------------
 if __name__ == "__main__":
     app.run(debug=True)
+
