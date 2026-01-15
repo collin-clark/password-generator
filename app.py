@@ -84,7 +84,7 @@ def generate():
     # -------------------------
     elif action == "passkey":
         try:
-            count = int(data.get("howmanypasswords", 1))
+            count = int(data.get("howmanypasswords", 10))
         except (ValueError, TypeError):
             context["error"] = "Invalid passkey count"
             return render_template("home.html", **context)
@@ -114,3 +114,4 @@ def generate():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
